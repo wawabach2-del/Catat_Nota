@@ -45,7 +45,7 @@ dependencies:
 
   # Utilitas
   connectivity_plus: ^6.1.0
-  intl: ^0.19.0
+  intl: any
   uuid: ^4.5.1
 
 dev_dependencies:
