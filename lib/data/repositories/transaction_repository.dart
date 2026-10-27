@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart' hide Transaction;
 
 import '../../domain/models/transaction.dart';
 

@@ -1,4 +1,4 @@
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart' hide Transaction;
 
 import '../../domain/models/sync_queue_item.dart';
 import '../../domain/models/transaction.dart';

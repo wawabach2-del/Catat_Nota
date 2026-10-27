@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui' show Rect;
 
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
@@ -24,7 +23,7 @@ class MlKitOcrEngine implements OcrEngine {
       final result = await recognizer.processImage(InputImage.fromFilePath(imagePath));
       final lines = [
         for (final block in result.blocks)
-          for (final line in block.lines) _Line(line.text, line.boundingBox),
+          for (final line in block.lines) OcrLine(line.text, line.boundingBox),
       ];
       return groupIntoRows(lines);
     } finally {
@@ -44,8 +43,8 @@ class VisionOcrEngine implements OcrEngine {
   }
 }
 
-class _Line {
-  _Line(this.text, this.box);
+class OcrLine {
+  OcrLine(this.text, this.box);
   final String text;
   final Rect box;
 }
@@ -53,9 +52,9 @@ class _Line {
 /// Struk biasanya berbentuk "NAMA BARANG ........ HARGA". OCR sering memecah
 /// nama dan harga menjadi dua blok terpisah; fungsi ini menggabungkannya
 /// kembali berdasarkan posisi vertikal sehingga parser menerima satu baris utuh.
-String groupIntoRows(List<_Line> lines) {
+String groupIntoRows(List<OcrLine> lines) {
   final sorted = [...lines]..sort((a, b) => a.box.center.dy.compareTo(b.box.center.dy));
-  final rows = <List<_Line>>[];
+  final rows = <List<OcrLine>>[];
   for (final l in sorted) {
     if (rows.isNotEmpty) {
       final ref = rows.last.first.box;
